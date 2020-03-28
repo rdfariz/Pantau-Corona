@@ -1,0 +1,22 @@
+{
+  "name": "pantau-corona",
+  "version": "1.0.0",
+  "description": "website for monitoring corona in indonesia",
+  "author": "rdfariz",
+  "private": true,
+  "scripts": {
+    "dev": "nuxt",
+    "build": "nuxt build",
+    "start": "nuxt start",
+    "generate": "nuxt generate"
+  },
+  "dependencies": {
+    "@nuxtjs/axios": "^5.3.6",
+    "@nuxtjs/dotenv": "^1.4.0",
+    "@nuxtjs/proxy": "^1.3.3",
+    "@nuxtjs/pwa": "^3.0.0-0",
+    "nuxt": "^2.0.0",
+    "vuesax": "^4.0.1-alpha.8"
+  },
+  "devDependencies": {}
+}
