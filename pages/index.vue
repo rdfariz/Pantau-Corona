@@ -62,7 +62,16 @@
       <div class="content-right">
         <div class="log">
           <ul>
-            <li v-for="dc in dailyCases">{{dc.time}} = {{dc.cases}}</li>
+            <p>== Historical Indonesia ==</p>
+            <br>
+            <li v-for="(dc, index) in dailyCases">
+              <template v-if="index == 0">
+                <b>{{dc.time}} = {{dc.cases}}</b>
+              </template>
+              <template v-else>
+                {{dc.time}} = {{dc.cases}}
+              </template>
+            </li>
           </ul>
         </div>
       </div>
@@ -105,8 +114,9 @@ export default {
         })
       });
 
+      let now = moment().format('L')
       dailyCases.push({
-        time: moment("6/12/15", "M/D/YY").format("M/D/YYYY"),
+        time: moment(now, "M/D/YYYY").format("M/D/YY"),
         cases: indonesia.data[0].positif
       })
       
