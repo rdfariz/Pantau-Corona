@@ -238,7 +238,7 @@ export default {
       background: #000000;
       overflow-y: auto;
       color: #ffffff;
-      padding: 16px;
+      padding: 16px 4px;
     }
 
     
