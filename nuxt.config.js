@@ -53,9 +53,13 @@ export default {
     proxy: true
   },
   proxy: {
-    '/indonesia/': {
-      target: 'https://api.kawalcorona.com/indonesia/',
-      pathRewrite: {'^/indonesia/': '/'}
+    '/historical/indonesia': {
+      target: 'https://corona.lmao.ninja/v2',
+      pathRewrite: {'^/historical/indonesia': '/historical/indonesia'}
+    },
+    '/indonesia': {
+      target: 'https://api.kawalcorona.com',
+      pathRewrite: {'^/indonesia/': '/indonesia'}
     },
     '/provinsi/': {
       target: 'https://api.kawalcorona.com/indonesia/provinsi',
