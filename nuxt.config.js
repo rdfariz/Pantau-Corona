@@ -1,6 +1,6 @@
 
 module.exports = {
-  mode: 'spa',
+  mode: 'universal',
   /*
   ** Headers of the page
   */
@@ -77,7 +77,12 @@ module.exports = {
     }
   },
   generate: {
-    fallback: true
+    subFolders: false,
+    routes: [
+      '/api/historical/indonesia',
+      '/api/indonesia',
+      '/api/indonesia/provinsi'
+    ]
   },
   server: {
     port: 8080
