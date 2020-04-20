@@ -113,10 +113,10 @@ export default {
   },
   methods: {
     async init() {
-      const loading = this.$vs.loading({
-        type: 'circles',
-        text: 'Mengambil data terbaru..'
-      })
+      // const loading = this.$vs.loading({
+      //   type: 'circles',
+      //   text: 'Mengambil data terbaru..'
+      // })
       const indonesia = await this.$axios.get('/api/indonesia')
       const provinsi = await this.$axios.get('/api/indonesia/provinsi')
       const daily = await this.$axios.get('/api/historical/indonesia')
@@ -150,7 +150,7 @@ export default {
       this.indonesia = indonesia.data
       this.provinsi = provinsiSort
       this.dailyCases = dailyCases.reverse()
-      return loading.close()
+      // return loading.close()
     },
     setDarkMode() {
       this.darkMode = !this.darkMode

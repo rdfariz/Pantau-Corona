@@ -75,5 +75,8 @@ module.exports = {
     */
     extend (config, ctx) {
     }
+  },
+  generate: {
+    fallback: true
   }
 }
