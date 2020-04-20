@@ -78,5 +78,8 @@ module.exports = {
   },
   generate: {
     fallback: true
+  },
+  server: {
+    port: 8080
   }
 }
