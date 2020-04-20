@@ -21,41 +21,21 @@ async function start () {
     await builder.build()
   }
 
-  app.get('/api/historical/indonesia', (req, res, next) => {
-    try {
-      const url = 'https://corona.lmao.ninja/v2/historical/indonesia'
-      axios.get(url).then((response)=>{
-        res.json(response.data)
-      }).catch(()=>{
-        res.json(null)
-      })
-    }catch(err){
-      res.json(null)
-    }
+  async function getData(url, callback) {
+    const data = await axios.get(`${url}`)
+    return callback(data)
+  }
+  app.get('/api/historical/indonesia',  async (req, res, next) => {
+    const url = 'https://corona.lmao.ninja/v2/historical/indonesia'
+    getData(url, (response)=>{ res.json(response.data) })
   })
-  app.get('/api/indonesia', (req, res, next) => {
-    try {
-      const url = 'https://api.kawalcorona.com/indonesia/'
-      axios.get(url).then((response)=>{
-        res.json(response.data)
-      }).catch(()=>{
-        res.json(null)
-      })
-    }catch(err){
-      res.json(null)
-    }
+  app.get('/api/indonesia',  async (req, res, next) => {
+    const url = 'https://api.kawalcorona.com/indonesia/'
+    getData(url, (response)=>{ res.json(response.data) })
   })
-  app.get('/api/indonesia/provinsi', (req, res, next) => {
-    try {
-      const url = 'https://api.kawalcorona.com/indonesia/provinsi'
-      axios.get(url).then((response)=>{
-        res.json(response.data)
-      }).catch(()=>{
-        res.json(null)
-      })
-    }catch(err) {
-      res.json(null)
-    }
+  app.get('/api/indonesia/provinsi',  async (req, res, next) => {
+    const url = 'https://api.kawalcorona.com/indonesia/provinsi'
+    getData(url, (response)=>{ res.json(response.data) })
   })
 
   // Give nuxt middleware to express
