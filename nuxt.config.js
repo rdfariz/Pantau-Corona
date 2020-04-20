@@ -76,14 +76,6 @@ module.exports = {
     extend (config, ctx) {
     }
   },
-  generate: {
-    subFolders: false,
-    routes: [
-      '/api/historical/indonesia',
-      '/api/indonesia',
-      '/api/indonesia/provinsi'
-    ]
-  },
   server: {
     port: 8080
   }
