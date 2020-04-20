@@ -1,7 +1,6 @@
 <template>
   <div class="container" :class="[darkMode ? 'dark' : '']">
 
-    
     <transition name="slide-fade">
     <div id="header" class="margin-b-2">
       
@@ -59,12 +58,13 @@
         </transition>
       </div>
 
-      <div class="content-right">
+      <transition name="slide-fade-2">
+      <div v-if="dailyCases.length != 0" class="content-right">
         <div class="log">
           <ul>
             <p>== Historical Indonesia ==</p>
             <br>
-            <li v-for="(dc, index) in dailyCases">
+            <li v-for="(dc, index) in dailyCases" :key="index">
               <template v-if="index == 0">
                 <b>{{dc.time}} = {{dc.cases}}</b>
               </template>
@@ -75,6 +75,8 @@
           </ul>
         </div>
       </div>
+      </transition>
+
     </div>
 
     <div class="text footer">
@@ -90,9 +92,34 @@ import moment from 'moment'
 
 export default {
   async asyncData({$axios, isDev, route, store, env, params, query, req, res, redirect, error}) {
-      const indonesia = await $axios.get('/indonesia')
-      const provinsi = await $axios.get('/provinsi/')
-      const daily = await $axios.get('/historical/indonesia')
+      return {indonesia: null, provinsi: null, dailyCases: []}
+  },
+  data: ()=>({
+    FID: ''
+  }),
+  created() {
+    this.init()
+  },
+  computed: {
+    darkMode() {
+      return false
+    },
+    selectedProvinsi() {
+      return this.$store.getters.selectedProvinsi
+    },
+    isLoading() {
+      return this.$store.getters.isLoading
+    }
+  },
+  methods: {
+    async init() {0
+      const loading = this.$vs.loading({
+        type: 'circles',
+        text: 'Mengambil data terbaru..'
+      })
+      const indonesia = await this.$axios.get('/api/indonesia')
+      const provinsi = await this.$axios.get('/api/indonesia/provinsi')
+      const daily = await this.$axios.get('/api/historical/indonesia')
       const provinsiSort = provinsi.data.sort((a,b)=>{
         const bandA = a.attributes.Provinsi.toUpperCase();
         const bandB = b.attributes.Provinsi.toUpperCase();
@@ -119,24 +146,12 @@ export default {
         time: moment(now, "M/D/YYYY").format("M/D/YY"),
         cases: indonesia.data[0].positif
       })
-      
-      return {indonesia: indonesia.data, provinsi: provinsiSort, dailyCases: dailyCases.reverse()}
-  },
-  data: ()=>({
-    FID: ''
-  }),
-  computed: {
-    darkMode() {
-      return false
+
+      this.indonesia = indonesia.data
+      this.provinsi = provinsiSort
+      this.dailyCases = dailyCases.reverse()
+      return loading.close()
     },
-    selectedProvinsi() {
-      return this.$store.getters.selectedProvinsi
-    },
-    isLoading() {
-      return this.$store.getters.isLoading
-    }
-  },
-  methods: {
     setDarkMode() {
       this.darkMode = !this.darkMode
       localStorage.setItem('darkMode', this.darkMode)
@@ -279,6 +294,18 @@ export default {
   .slide-fade-enter, .slide-fade-leave-to
   /* .slide-fade-leave-active below version 2.1.8 */ {
     transform: translateY(10px);
+    opacity: 0;
+  }
+
+  .slide-fade-2-enter-active {
+    transition: all .3s ease;
+  }
+  .slide-fade-2-leave-active {
+    transition: all .3s ease;
+  }
+  .slide-fade-2-enter, .slide-fade-2-leave-to
+  /* .slide-fade-leave-active below version 2.1.8 */ {
+    transform: translateY(-10px);
     opacity: 0;
   }
 </style>

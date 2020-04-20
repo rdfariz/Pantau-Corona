@@ -34,7 +34,7 @@ export const mutations = {
 }
 export const actions = {
   async getIndonesia({commit}) {
-    await this.$axios.get('/indonesia/')
+    await this.$axios.get('/api/indonesia/')
     .then((result)=>{
       const data = result.data
       commit('setIndonesiaData', data)
@@ -46,7 +46,7 @@ export const actions = {
   },
   async getProvinsi({dispatch, commit, state}, req) {
     commit('setLoading', true)
-    await this.$axios.get('/provinsi/')
+    await this.$axios.get('/api/indonesia/provinsi/')
     .then((result) => {
       const data = result.data.find(el => el.attributes.FID == req)
       commit('setSelectedProvinsi', data.attributes)
