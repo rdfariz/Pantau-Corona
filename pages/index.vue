@@ -112,7 +112,7 @@ export default {
     }
   },
   methods: {
-    async init() {0
+    async init() {
       const loading = this.$vs.loading({
         type: 'circles',
         text: 'Mengambil data terbaru..'
